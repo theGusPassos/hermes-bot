@@ -29,5 +29,10 @@ async def check_admin(ctx):
 
     await ctx.send(random.choice(quotes))
 
+
+@bot.command(name='register-hero', help="Creates a hero")
+async def register_hero(ctx, hero_name: str):
+    await ctx.send(f"hero {hero_name} created")
+
 print("bot is running...")
 bot.run(TOKEN)
