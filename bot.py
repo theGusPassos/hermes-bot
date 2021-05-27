@@ -75,6 +75,14 @@ async def test_exceptions(ctx):
     raise Exception("failed successfully :')")
 
 
+@bot.command(name="user-ids")
+async def test_user_ids(ctx, target: discord.User):
+    await ctx.send(f"data\n your name: {ctx.message.author.display_name}\n" +
+                   f"your unique id: {ctx.message.author.id}\n" +
+                   f"target name: {target.display_name}\n" +
+                   f"target unique id: {target.id}")
+
+
 # The code in this event is executed every time a valid commands catches an error
 @bot.event
 async def on_command_error(context, error):
