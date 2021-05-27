@@ -33,6 +33,7 @@ async def check_admin(ctx):
 
 # getting some arguments
 @bot.command(name='register-hero', help="Creates a hero")
+@commands.cooldown(2.0, 30.0, commands.BucketType.guild)
 async def register_hero(ctx, hero_name: str):
     await ctx.send(f"hero {hero_name} created!")
 
@@ -61,6 +62,35 @@ async def delete_hero(ctx, hero_name: str):
         await ctx.send(f"deleting hero {hero_name}")
     elif str(reaction) == str(cancel_emoji):
         await ctx.send("cancel")
+
+
+@bot.command(name="impossible-permission")
+@commands.has_role('none')
+async def test_impossible_permission(ctx):
+    await ctx.send("wow O_O")
+
+
+@bot.command(name="exception", help="test exceptions")
+async def test_exceptions(ctx):
+    raise Exception("failed successfully :')")
+
+
+# The code in this event is executed every time a valid commands catches an error
+@bot.event
+async def on_command_error(context, error):
+    if isinstance(error, commands.CommandOnCooldown):
+        embed = discord.Embed(
+            title="Error!",
+            description="This command is on a %.2fs cool down" % error.retry_after
+        )
+        await context.send(embed=embed)
+    elif isinstance(error, commands.MissingRole):
+        embed = discord.Embed(
+            title="Error!",
+            description="you don't have the necessary role"
+        )
+        await context.send(embed=embed)
+    raise error
 
 print("bot is running...")
 bot.run(TOKEN)
