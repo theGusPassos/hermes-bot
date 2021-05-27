@@ -90,6 +90,13 @@ async def on_command_error(context, error):
             description="you don't have the necessary role"
         )
         await context.send(embed=embed)
+    elif isinstance(error, commands.CommandError):
+        embed = discord.Embed(
+            title="Error!",
+            description=f"there was an error running the command :( {error}"
+        )
+        await context.send(embed=embed)
+
     raise error
 
 print("bot is running...")
