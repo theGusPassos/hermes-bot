@@ -6,6 +6,8 @@ import asyncio
 from dotenv import load_dotenv
 from discord.ext import commands
 
+from services.messages import get_lang
+
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 
@@ -104,6 +106,25 @@ async def on_command_error(context, error):
         await context.send(embed=embed)
 
     raise error
+
+current_language = "english"
+
+
+@bot.command(name="language")
+async def change_language(ctx, language: str):
+    global current_language
+    if (language == "en"):
+        current_language = "english"
+        await ctx.send("language set to english")
+    elif (language == "pt-br"):
+        current_language = "portuguese"
+        await ctx.send("em pt br cachorrera")
+
+
+@bot.command(name="test-language")
+async def test_language(ctx):
+    await ctx.send(get_lang(current_language, "test-message"))
+
 
 print("bot is running...")
 bot.run(TOKEN)
