@@ -1,4 +1,4 @@
-(ns hero-project.components.servlet
+(ns hermes-api.components.servlet
   (:require [com.stuartsierra.component :as component]
             [io.pedestal.http :as bootstrap]))
 
