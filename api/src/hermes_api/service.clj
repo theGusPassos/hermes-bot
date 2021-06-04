@@ -3,14 +3,13 @@
 
 (def common-interceptors [])
 
-(defn respond-hello [request]
-  {:status 200 :body "Hello =)"})
-
+(defn ensure-up [request]
+  {:status 200 :body {:up true}})
 
 (def default-routes
   #{["/api"
      :get (conj common-interceptors
-                respond-hello)
+                ensure-up)
      :route-name :test]})
 
 (def routes
