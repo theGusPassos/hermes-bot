@@ -7,7 +7,7 @@
   (before (fn [context] (assoc-in context [:request :components] service))))
 
 (defn system-interceptors
-  "Extend to service's interceptors to include one to inject the components
+  "Extend to service's interceptors to include one that injects the components
    into the request object"
   [service-map service]
   (update-in service-map
