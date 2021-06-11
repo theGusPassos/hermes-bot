@@ -2,6 +2,8 @@ import os
 import discord
 import random
 import asyncio
+import json
+import requests_async as requests
 
 from dotenv import load_dotenv
 from discord.ext import commands
@@ -23,6 +25,12 @@ if __name__ == "__main__":
             except Exception as e:
                 exception = f"{type(e).__name__}: {e}"
                 print(f"Failed to load extension {extension}\n{exception}")
+
+
+@bot.command(name='ensure-up')
+async def ensure_up(ctx):
+    response = await requests.get('http://localhost:8080/api')
+    await ctx.send('api response: ' + response.text)
 
 
 @bot.command(name='admin', help="Tests if you are an admin")
