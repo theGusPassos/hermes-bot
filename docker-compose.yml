@@ -5,3 +5,8 @@ services:
       context: ./bot
     ports:
       - "5000:5000"
+  api:
+    build:
+      context: ./api
+    ports:
+      - "8080:8080"
